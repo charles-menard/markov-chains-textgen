@@ -3,7 +3,7 @@ import time
 import random
 import sys
 
-#ajoute une nouvelle rangée à un modèle avec +1 à la nouvelle observation
+#ajoute une nouvelle rangee a un modÃ¨le avec +1 a la nouvelle observation
 def addRowModel(model, obsLetters, predLetters):
 
     newrow = pd.DataFrame(index=[obsLetters], columns=model.columns).fillna(0)
@@ -12,12 +12,12 @@ def addRowModel(model, obsLetters, predLetters):
     model[predLetters][obsLetters] += 1
     return model
 
-#retourne un df dont les sommes des rangées égals 1
+#retourne un df dont les sommes des rangees egals 1
 def normalizeRow(dataframe):
     return dataframe.div(dataframe.sum(axis=1), axis=0).fillna(0)
 
-#retourne une liste triés des séquences de longueur n dans le predictNext
-#retourne un seul exemple de la séquence, si word est vrai, Ã§a le fait par mot
+#retourne une liste tries des sequences de longueur n dans le predictNext
+#retourne un seul exemple de la sequence, si word est vrai, ÃƒÂ§a le fait par mot
 def uniqueSeqStr(txt, n, word=False):
     occurence = set()
     if (not word):
@@ -90,12 +90,12 @@ def generateTextByWords(txt, length, ngram=1):
     for i in range(length-ngram):
         wordsFound = False
         lengthOfSeq = ngram
-        #si on trouve pas la séquence de ngram, on cherche pour une seq de ngram-1 etc
+        #si on trouve pas la sequence de ngram, on cherche pour une seq de ngram-1 etc
 
         while(not wordsFound):
             currentWords = " ".join(txtList[i:i + lengthOfSeq])
             #print("Current words : [{0}]".format(currentWords))
-            #s'il trouve la séquence dans le texte, prédit, sinon descend `ngram-1`
+            #s'il trouve la sequence dans le texte, predit, sinon descend `ngram-1`
             if (currentWords in setsOfLetters[lengthOfSeq-1]):
 
                 nextWord = predictNext(currentWords, models[lengthOfSeq-1])
@@ -130,13 +130,13 @@ def generateTextByLetters(txt, length, ngram=1):
     for i in range(length-ngram):
         lettersFound = False
         lengthOfSeq = ngram
-        #si on trouve pas la séquence de ngram, on cherche pour une seq de ngram-1 etc
+        #si on trouve pas la sequence de ngram, on cherche pour une seq de ngram-1 etc
 
         while(not lettersFound):
 
             currentLetters = generatedText[i:i + lengthOfSeq]
 
-            #s'il trouve la séquence dans le texte, prédit, sinon descend `ngram-1`
+            #s'il trouve la sequence dans le texte, predit, sinon descend `ngram-1`
             if (currentLetters in setsOfLetters[lengthOfSeq-1]):
                 nextLetter = predictNext(currentLetters, models[lengthOfSeq-1])
                 lettersFound = True
